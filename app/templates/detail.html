@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}<section class="section">
+    <div id="detail" class="panel">Loading recommendation…</div>
+</section>{% endblock %}{% block scripts %}
+<script>async function load() { const r = await fetch('/recommendations-details/{{ recommendation_id }}'); const d = await r.json(); if (!r.ok) { document.getElementById('detail').textContent = d.detail || 'Not found'; return } const x = d.response; document.getElementById('detail').innerHTML = `<p class="eyebrow">${x.planner_type}</p><h1>${x.title}</h1><p>${x.summary}</p><h3>Recommendations</h3>${x.items.map(i => `<div class="recommend"><div><b>${i.name}</b><p>${i.reason}</p></div><strong>₹${Number(i.estimated_price).toLocaleString('en-IN')}</strong></div>`).join('')}` } load();</script>
+{% endblock %}

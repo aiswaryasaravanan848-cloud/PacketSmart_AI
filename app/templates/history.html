@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section">
+    <p class="eyebrow">SAVED PLANS</p>
+    <h1>Recommendation History</h1>
+
+    <div id="history-list"></div>
+</section>
+
+<script>
+async function loadHistory() {
+    try {
+        const response = await fetch("/api/history");
+
+        if (!response.ok) {
+            throw new Error("Failed to load history");
+        }
+
+        const data = await response.json();
+
+        const container = document.getElementById("history-list");
+
+        if (!data || data.length === 0) {
+            container.innerHTML = "<p>No recommendation history found.</p>";
+            return;
+        }
+
+        container.innerHTML = data.map(item => `
+            <div class="card">
+                <h2>${item.planner_type || "Recommendation"}</h2>
+                <p>Created: ${item.created_at || ""}</p>
+
+                <a href="/recommendations-details/${item.id}">
+                    View Details
+                </a>
+            </div>
+        `).join("");
+
+    } catch (error) {
+        console.error(error);
+
+        document.getElementById("history-list").innerHTML =
+            "<p>Unable to load recommendation history.</p>";
+    }
+}
+
+loadHistory();
+</script>
+
+{% endblock %}
