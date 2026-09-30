@@ -162,3 +162,6 @@ Page routes include `/`, `/login`, `/register`, `/dashboard`, `/history`, `/plan
 
 ## Notes about external marketplaces
 The project document calls for Amazon, Flipkart, IKEA, Swiggy, Zomato, OYO and similar sources, but it does not provide production API credentials/contracts. This implementation therefore uses clearly labeled search links and a local mock catalog instead of pretending to have live marketplace inventory. Replace `marketplace_service.py` with approved partner APIs when credentials/contracts are available.
+## Live Demo
+
+https://pocketsmart-ai-gope.onrender.com
